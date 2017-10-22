@@ -7,7 +7,8 @@
 //////////////
 // INCLUDES //
 //////////////
-#include <windows.h>
+//#include <windows.h>
+#include "D3Dclass.h"
 
 
 /////////////
@@ -36,6 +37,6 @@ private:
 	bool Render();
 
 private:
-
+	D3DClass* m_Direct3D;
 };
 
