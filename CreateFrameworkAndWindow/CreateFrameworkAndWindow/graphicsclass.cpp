@@ -9,7 +9,8 @@ GraphicsClass::GraphicsClass()
 	m_Direct3D = 0;
 	m_Camera = 0;
 	m_Model = 0;
-	m_ColorShader = 0;
+	//m_ColorShader = 0;
+	m_textureShader = 0;
 }
 
 
@@ -55,7 +56,7 @@ bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 	}
 
 	// Initialize the model object.
-	result = m_Model->Initialize(m_Direct3D->GetDevice());
+	result = m_Model->Initialize(m_Direct3D->GetDevice(), m_Direct3D->GetDeviceContext(), "./images/test.tga");
 	if (!result)
 	{
 		MessageBox(hwnd, L"Could not initialize the model object.", L"Error", MB_OK);
@@ -63,14 +64,15 @@ bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 	}
 
 	// Create the color shader object.
-	m_ColorShader = new ColorShaderClass;
-	if (!m_ColorShader)
+	//m_ColorShader = new ColorShaderClass;
+	m_textureShader = new TextureShaderClass;
+	if (!m_textureShader)
 	{
 		return false;
 	}
 
 	// Initialize the color shader object.
-	result = m_ColorShader->Initialize(m_Direct3D->GetDevice(), hwnd);
+	result = m_textureShader->Initialize(m_Direct3D->GetDevice(), hwnd);
 	if (!result)
 	{
 		MessageBox(hwnd, L"Could not initialize the color shader object.", L"Error", MB_OK);
@@ -85,11 +87,11 @@ bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 void GraphicsClass::Shutdown()
 {
 	// Release the color shader object.
-	if (m_ColorShader)
+	if (m_textureShader)
 	{
-		m_ColorShader->Shutdown();
-		delete m_ColorShader;
-		m_ColorShader = 0;
+		m_textureShader->Shutdown();
+		delete m_textureShader;
+		m_textureShader = 0;
 	}
 
 	// Release the model object.
@@ -119,7 +121,6 @@ void GraphicsClass::Shutdown()
 bool GraphicsClass::Frame()
 {
 	bool result;
-
 
 	// Render the graphics scene.
 	result = Render();
@@ -152,13 +153,11 @@ bool GraphicsClass::Render()
 	m_Model->Render(m_Direct3D->GetDeviceContext());
 
 	// Render the model using the color shader.
-	result = m_ColorShader->Render(m_Direct3D->GetDeviceContext(), m_Model->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix);
+	result = m_textureShader->Render(m_Direct3D->GetDeviceContext(), m_Model->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix , m_Model->GetTexture());
 	if (!result)
 	{
 		return false;
 	}
-
-
 
 	// Present the rendered scene to the screen.
 	m_Direct3D->EndScene();
