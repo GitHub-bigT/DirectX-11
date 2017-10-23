@@ -1,8 +1,9 @@
 ﻿  systemclass.cpp
-  graphicsclass.cpp
-  Generating Code...
-  Compiling...
+  modelclass.cpp
   main.cpp
+  graphicsclass.cpp
+  colorshaderclass.cpp
+  cameraclass.cpp
   Generating Code...
   CreateFrameworkAndWindow.vcxproj -> E:\practise\Direct11-study\CreateFrameworkAndWindow\x64\Debug\CreateFrameworkAndWindow.exe
   CreateFrameworkAndWindow.vcxproj -> E:\practise\Direct11-study\CreateFrameworkAndWindow\x64\Debug\CreateFrameworkAndWindow.pdb (Full PDB)
