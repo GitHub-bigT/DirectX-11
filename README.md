@@ -1,7 +1,7 @@
 # DirectX-11
 study d3d11
 
-IDXGIDuplication获取桌面屏幕数据，Texture的共享资源
+IDXGIDuplication DDA(Desktop Duplication API)获取桌面屏幕数据，Texture的共享资源
 
 IDXGIOutput1::DuplicationOutput with DXGI_ERROR_UNSUPPORTED
 
